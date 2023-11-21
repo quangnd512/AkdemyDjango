@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 
 import os
-# from dotenv import load_dotenv
+from decouple import Config
+config = Config('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,7 @@ SECRET_KEY = 'django-insecure-wbh941u29o-(@&0=4bvtd0)qwfi9pviwyqu+7a6hn4yc5ht85q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 STATIC_DIR = f'{BASE_DIR}\\static' #static
 
@@ -42,28 +43,66 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'django.contrib.sites',
     'rest_framework',
     'drf_spectacular',
     'Blog',
+    'Category',
+    'Stuff',
     'ckeditor',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'django.middleware.common.CommonMiddleware',    
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # 'APP': {
+        #     'client_id': '176237647532-qm109ubh3hgdkdf545knqolheb99ogtj.apps.googleusercontent.com',
+        #     'secret': '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',
+        # },
+        'SCOPE': {
+            'profile',
+            'email'
+        },
+        "AUTH_PARAMS":{
+            "access_type": "online"
+        }
+    }
+}
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+#Additional configuration settings
+# SOCIALACCOUNT_QUERY_EMAIL = True
+# ACCOUNT_LOGOUT_ON_GET= True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_REQUIRED = True
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
 
 ROOT_URLCONF = 'AkdemyDjango.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,16 +124,18 @@ WSGI_APPLICATION = 'AkdemyDjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        
+        # 'NAME': os.environ.get('DB_NAME'),
+        # 'USER': os.environ.get('DB_USER'),
+        # 'PASSWORD': os.environ.get('DB_PASSWORD'),
+        # 'HOST': os.environ.get('DB_HOST'),
+        # 'PORT': os.environ.get('DB_PORT'),
+
         'NAME': 'Akdemy',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '5432'
-        # 'NAME': os.getenv('DB_NAME'),
-        # 'USER': os.getenv('DB_USER'),
-        # 'PASSWORD': os.getenv('DB_PASSWORD'),
-        # 'HOST': os.getenv('DB_HOST'),
-        # 'PORT': os.getenv('DB_PORT'),
     }
 }
 
