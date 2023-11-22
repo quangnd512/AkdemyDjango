@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
 import os
+
 from decouple import Config
 config = Config('.env')
 
@@ -46,9 +46,11 @@ INSTALLED_APPS = [
 #    'django.contrib.sites',
     'rest_framework',
     'drf_spectacular',
+    'rest_framework.authtoken',
     'Blog',
     'Category',
     'Stuff',
+    'User',
     'ckeditor',
     'allauth',
     'allauth.account',
@@ -66,6 +68,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
+
+ROOT_URLCONF = 'AkdemyDjango.urls'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -184,8 +188,13 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# AUTH_USER_MODEL = 'User.User'
+
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         #'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny'
