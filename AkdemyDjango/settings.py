@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 #    'django.contrib.sites',
+    'drf_spectacular', # auto generate docs
     'rest_framework',
-    'drf_spectacular',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken', # authenticate by tokens
     'Blog',
     'Category',
     'Stuff',

@@ -1,44 +1,10 @@
-# from django.contrib import admin
-# from django.contrib.auth.models import User
-# from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-# from django.utils.translation import gettext_lazy as _
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
+class CustomUserAdmin(UserAdmin):
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'id')
 
-# # Register your models here.
-
-# class UserAdmin(BaseUserAdmin):
-#     """Define the admin pages for users."""
-#     ordering = ['id']
-#     list_display = ['email', 'name']
-#     fieldsets = (
-#         (None, {'fields': ('email', 'password')}),
-#         (_('Personal Info'), {'fields': ('name',)}),
-#         (
-#             _('Permissions'),
-#             {
-#                 'fields': (
-#                     'is_active',
-#                     'is_staff',
-#                     'is_superuser',
-#                 )
-#             }
-#         ),
-#         (_('Important dates'), {'fields': ('last_login',)}),
-#     )
-#     readonly_fields = ['last_login']
-#     add_fieldsets = (
-#         (None, {
-#             'classes': ('wide',),
-#             'fields': (
-#                 'email',
-#                 'password1',
-#                 'password2',
-#                 'name',
-#                 'is_active',
-#                 'is_staff',
-#                 'is_superuser',
-#             ),
-#         }),
-#     )
-
-# admin.site.register(User, UserAdmin)
+# Register the custom UserAdmin for the default User model
+admin.site.unregister(User)  # Unregister the default UserAdmin
+admin.site.register(User, CustomUserAdmin)  # Register your custom UserAdmin

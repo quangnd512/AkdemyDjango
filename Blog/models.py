@@ -11,7 +11,7 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     from_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    number_read = models.IntegerField()
+    number_read = models.IntegerField(default=0)
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
 

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth.models import Group
 from django.utils.translation import gettext as _
 from rest_framework import serializers
 
@@ -12,8 +13,14 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
-        """Create and return a user with encrypted password."""
-        return get_user_model().objects.create_user(**validated_data)
+        # Create the user
+        user = get_user_model().objects.create_user(**validated_data)
+
+        # Add the user to the "USER" group
+        user_group = Group.objects.get(name='User')
+        user.groups.add(user_group)
+
+        return user
 
     def update(self, instance, validated_data):
         """Update and return user."""

@@ -14,5 +14,6 @@ urlpatterns = [
     path('api/blog/', include('Blog.urls'), name='api-blog'),
     path('api/user/', include('User.urls'), name='api-user'),
     path('api/category/', include('Category.urls'), name='api-category'),
+    
     # path('accounts/', include('allauth.urls')),
 ]
