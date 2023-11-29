@@ -7,12 +7,15 @@ from rest_framework.settings import api_settings
 from User.serializers import UserSerializer, AuthTokenSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema
 
+
+@extend_schema(tags=['User'])
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system."""
     serializer_class = UserSerializer
 
-
+@extend_schema(tags=['Authentication'])
 class CreateTokenView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
@@ -26,7 +29,7 @@ class CreateTokenView(ObtainAuthToken):
             'email': user.email
         })
 
-
+@extend_schema(tags=['User'])
 class ManageUserView(generics.RetrieveUpdateAPIView):
     """Manage the authenticated user."""
     serializer_class = UserSerializer
