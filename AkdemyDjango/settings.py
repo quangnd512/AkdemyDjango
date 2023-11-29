@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'Category',
     'Stuff',
     'User',
+    'Course',
     'ckeditor',
     'allauth',
     'allauth.account',
