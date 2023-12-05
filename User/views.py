@@ -9,7 +9,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 
-
 @extend_schema(tags=['User'])
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system."""

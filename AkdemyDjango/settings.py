@@ -43,13 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-#    'django.contrib.sites',
+    'django.contrib.sites',
     'drf_spectacular', # auto generate docs
     'rest_framework',
     'rest_framework.authtoken', # authenticate by tokens
     'Blog',
     'Category',
-    'Stuff',
+    'Stuff',    
     'User',
     'Course',
     'ckeditor',
@@ -75,8 +75,8 @@ ROOT_URLCONF = 'AkdemyDjango.urls'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # 'APP': {
-        #     'client_id': '176237647532-qm109ubh3hgdkdf545knqolheb99ogtj.apps.googleusercontent.com',
-        #     'secret': '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',
+        #     'client_id': '176237647532-b5v3uko397sr6as13v5nl5nairscccfj.apps.googleusercontent.com',
+        #     'secret': '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',
         # },
         'SCOPE': {
             'profile',

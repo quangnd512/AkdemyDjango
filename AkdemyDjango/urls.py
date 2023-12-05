@@ -16,5 +16,5 @@ urlpatterns = [
     path('api/category/', include('Category.urls'), name='api-category'),
     path('api/course/', include('Course.urls'), name='api-course'),
     
-    # path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls'),name='oauth-google'),
 ]
